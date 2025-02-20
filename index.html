@@ -3,28 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sentiment Analysis</title>
+    <title>Sentiment Analysis Web App</title>
 </head>
 <body>
-    <h2>Sentiment Analysis Web App</h2>
+    <h1>Sentiment Analysis Web App</h1>
     
-    <textarea id="textInput" rows="4" cols="50" placeholder="Enter your text here..."></textarea>
+    <textarea id="userInput" placeholder="Enter your text here..."></textarea>
     <br>
     <button onclick="analyzeSentiment()">Analyze Sentiment</button>
-    
+
     <h3>Result:</h3>
-    <p id="result"></p>
+    <div id="result"></div>
 
     <script>
         async function analyzeSentiment() {
-            const text = document.getElementById("textInput").value;
-            const response = await fetch("https://your-backend-url/analyze", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ text: text })
-            });
-            const data = await response.json();
-            document.getElementById("result").innerText = `Sentiment: ${data.sentiment}`;
+            const userInput = document.getElementById("userInput").value;
+            const resultDiv = document.getElementById("result");
+
+            try {
+                const response = await fetch("http://localhost:8000/analyze", {  // Change this to your backend URL
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ text: userInput })
+                });
+
+                const data = await response.json();
+                resultDiv.innerHTML = `<strong>Sentiment:</strong> ${data.sentiment}`;
+            } catch (error) {
+                resultDiv.innerHTML = `<strong>Error:</strong> Could not connect to the backend.`;
+                console.error("Error:", error);
+            }
         }
     </script>
 </body>
