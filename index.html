@@ -3,9 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sentiment Frontend</title>
+    <title>Sentiment Analysis</title>
 </head>
 <body>
-    <h1>Welcome to Sentiment Analysis Frontend</h1>
+    <h2>Sentiment Analysis Web App</h2>
+    
+    <textarea id="textInput" rows="4" cols="50" placeholder="Enter your text here..."></textarea>
+    <br>
+    <button onclick="analyzeSentiment()">Analyze Sentiment</button>
+    
+    <h3>Result:</h3>
+    <p id="result"></p>
+
+    <script>
+        async function analyzeSentiment() {
+            const text = document.getElementById("textInput").value;
+            const response = await fetch("https://your-backend-url/analyze", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ text: text })
+            });
+            const data = await response.json();
+            document.getElementById("result").innerText = `Sentiment: ${data.sentiment}`;
+        }
+    </script>
 </body>
 </html>
