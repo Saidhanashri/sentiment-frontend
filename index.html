@@ -4,38 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sentiment Analysis Web App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+        }
+        #result {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
+
     <h1>Sentiment Analysis Web App</h1>
-    
-    <textarea id="userInput" placeholder="Enter your text here..."></textarea>
-    <br>
+
+    <input type="text" id="inputText" placeholder="Enter your text here">
     <button onclick="analyzeSentiment()">Analyze Sentiment</button>
 
     <h3>Result:</h3>
-    <div id="result"></div>
+    <p id="result">Waiting for input...</p>
 
     <script>
-        async function analyzeSentiment() {
-            const userInput = document.getElementById("userInput").value;
-            const resultDiv = document.getElementById("result");
-
-            try {
-                const response = await fetch("http://localhost:8000/analyze", {  // Change this to your backend URL
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ text: userInput })
-                });
-
-                const data = await response.json();
-                resultDiv.innerHTML = `<strong>Sentiment:</strong> ${data.sentiment}`;
-            } catch (error) {
-                resultDiv.innerHTML = `<strong>Error:</strong> Could not connect to the backend.`;
-                console.error("Error:", error);
+        function analyzeSentiment() {
+            let text = document.getElementById("inputText").value;
+            
+            if (text.trim() === "") {
+                document.getElementById("result").innerHTML = "<span style='color:red;'>Error: Please enter some text.</span>";
+                return;
             }
+
+            fetch("https://fastapi-production-7324.up.railway.app/analyze", { // ✅ Use your deployed API URL
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ text: text })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("result").innerHTML = `Sentiment: <b>${data.sentiment}</b>`;
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                document.getElementById("result").innerHTML = "<span style='color:red;'>Error: Could not connect to the backend.</span>";
+            });
         }
     </script>
+
 </body>
 </html>
