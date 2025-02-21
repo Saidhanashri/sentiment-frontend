@@ -24,23 +24,36 @@ async function analyzeSentiment() {
 =======
 # JavaScript API Request
 function analyzeSentiment() {
-    const userInput = document.getElementById("userInput").value;
-    const resultElement = document.getElementById("result");
+    let inputElement = document.getElementById("input-text");
 
-    fetch("https://fastapi-production-7324.up.railway.app/analyze", {
+    if (!inputElement) {
+        console.error("Error: Input field not found.");
+        alert("Error: Input field is missing.");
+        return;
+    }
+
+    let text = inputElement.value.trim(); // Trim to remove extra spaces
+
+    if (!text) {
+        console.error("Error: No text provided.");
+        alert("Please enter some text before analyzing sentiment.");
+        return;
+    }
+
+    // Proceed with API call to your backend
+    fetch("YOUR_BACKEND_API_URL", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ text: userInput })
+        body: JSON.stringify({ text: text })
     })
     .then(response => response.json())
     .then(data => {
-        resultElement.innerHTML = `<strong>Sentiment:</strong> ${data.sentiment}`;
+        document.getElementById("result").innerText = "Sentiment: " + data.sentiment;
     })
     .catch(error => {
-        resultElement.innerHTML = `<strong>Error:</strong> Could not connect to the backend.`;
         console.error("Error:", error);
+        document.getElementById("result").innerText = "Error: Could not connect to the backend.";
     });
 }
->>>>>>> d7eafcc (Saving local changes before pull)
