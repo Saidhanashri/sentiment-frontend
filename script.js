@@ -23,8 +23,8 @@ async function analyzeSentiment() {
 
 =======
 # JavaScript API Request
-console.log("Script loaded!");
 
+console.log("Script loaded!");
 function analyzeSentiment() {
     let inputElement = document.getElementById("input-text");
 
