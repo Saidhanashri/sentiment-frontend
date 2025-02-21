@@ -4,57 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sentiment Analysis Web App</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
-        }
-        input, button {
-            padding: 10px;
-            margin: 10px;
-            font-size: 16px;
-        }
-        #result {
-            font-weight: bold;
-            margin-top: 20px;
-        }
-    </style>
+    <script defer src="script.js"></script>
 </head>
 <body>
-
     <h1>Sentiment Analysis Web App</h1>
-
-    <input type="text" id="inputText" placeholder="Enter your text here">
+    
+    <input type="text" id="userInput" placeholder="Enter text...">
     <button onclick="analyzeSentiment()">Analyze Sentiment</button>
 
     <h3>Result:</h3>
-    <p id="result">Waiting for input...</p>
-
-    <script>
-        function analyzeSentiment() {
-            let text = document.getElementById("inputText").value;
-            
-            if (text.trim() === "") {
-                document.getElementById("result").innerHTML = "<span style='color:red;'>Error: Please enter some text.</span>";
-                return;
-            }
-
-            fetch("https://fastapi-production-7324.up.railway.app/analyze", { // ✅ Use your deployed API URL
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ text: text })
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById("result").innerHTML = `Sentiment: <b>${data.sentiment}</b>`;
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                document.getElementById("result").innerHTML = "<span style='color:red;'>Error: Could not connect to the backend.</span>";
-            });
-        }
-    </script>
-
+    <p id="result"><strong>Error:</strong> Could not connect to the backend.</p>
 </body>
 </html>
