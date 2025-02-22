@@ -1,11 +1,11 @@
 console.log("This is my final version of the script");
-const API_URL = "http://127.0.0.1:8000/analyze"; 
+const API_URL = "https://fastapi-production-9bb5.up.railway.app"; 
 
 async function analyzeSentiment() {
     const textInput = document.getElementById("text-input").value;
 
     try {
-        const response = await fetch("http://127.0.0.1:8000/analyze", {
+        const response = await fetch("https://fastapi-production-9bb5.up.railway.app", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -43,7 +43,7 @@ function analyzeSentiment() {
     }
 
     // Proceed with API call to your backend
-    fetch("http://127.0.0.1:8000/analyze", {
+    fetch("https://fastapi-production-9bb5.up.railway.app", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
