@@ -21,7 +21,6 @@ async function analyzeSentiment() {
     }
 }
 
-=======
 # JavaScript API Request
 
 console.log("Script loaded!");
