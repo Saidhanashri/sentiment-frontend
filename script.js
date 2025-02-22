@@ -1,5 +1,5 @@
 console.log("This is my final version of the script");
-const API_URL = "http://127.0.0.1:8000/analyze"; 
+const API_URL = "http://127.0.0.1:8000"; 
 
 async function analyzeSentiment() {
     const textInput = document.getElementById("text-input").value;
