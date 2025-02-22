@@ -1,16 +1,16 @@
 console.log("This is my final version of the script");
-const API_URL = "https://fastapi-production-9bb5.up.railway.app"; 
+const API_URL = "http://127.0.0.1:8000/analyze"; 
 
 async function analyzeSentiment() {
     const textInput = document.getElementById("text-input").value;
 
     try {
-        const response = await fetch("https://fastapi-production-9bb5.up.railway.app", {
+        const response = await fetch("http://127.0.0.1:8000/analyze", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ text: textInput }),
+            body: JSON.stringify({ text: "I love this product" }),
         });
 
         const result = await response.json();
@@ -33,7 +33,7 @@ function analyzeSentiment() {
         return;
     }
 
-    let text = inputElement.value.trim(); // Trim to remove extra spaces
+    let text = inputElement.value.trim(); 
 
     if (!text) {
         console.error("Error: No text provided.");
@@ -42,7 +42,7 @@ function analyzeSentiment() {
     }
 
     // Proceed with API call to your backend
-    fetch("https://fastapi-production-9bb5.up.railway.app", {
+    fetch("http://127.0.0.1:8000/analyze", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
