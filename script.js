@@ -5,7 +5,7 @@ async function analyzeSentiment() {
     const textInput = document.getElementById("text-input").value;
 
     try {
-        const response = await fetch(API_URL, {
+        const response = await fetch("http://127.0.0.1:8000/analyze", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
