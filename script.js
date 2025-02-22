@@ -43,7 +43,7 @@ function analyzeSentiment() {
     }
 
     // Proceed with API call to your backend
-    fetch("YOUR_BACKEND_API_URL", {
+    fetch("http://127.0.0.1:8000/analyze", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
